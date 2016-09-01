@@ -11,3 +11,7 @@ class City(BaseModel):
     @classmethod
     def get_all(cls):
         return cls.select()
+
+    @classmethod
+    def get_by_name(cls, name):
+        return cls.select().where(cls.name == name).get()

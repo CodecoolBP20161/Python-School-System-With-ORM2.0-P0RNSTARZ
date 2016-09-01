@@ -2,6 +2,7 @@ from basemodel import *
 from model_school import *
 from model_city import *
 import string
+import random
 
 
 class Applicant(BaseModel):

@@ -1,5 +1,5 @@
-from upload_data import list_of_cities
 
+from model_city import *
 
 class Inputhandler():
     @classmethod
@@ -12,6 +12,6 @@ class Inputhandler():
 
         if '@' not in all_data['Email'] or '.' not in all_data['Email']:
             result[1][1] = 'Incorrect'
-        if all_data['City'] not in list_of_cities:
+        if all_data['City'] not in City.get_all():
             result[2][1] = 'Incorrect'
         return result

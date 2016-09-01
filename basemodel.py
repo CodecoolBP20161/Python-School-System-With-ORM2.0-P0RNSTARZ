@@ -1,6 +1,6 @@
 from peewee import *
 
-db = PostgresqlDatabase('TothBalint', user='balint')
+db = PostgresqlDatabase('csibi', user='csibi')
 
 
 class BaseModel(Model):

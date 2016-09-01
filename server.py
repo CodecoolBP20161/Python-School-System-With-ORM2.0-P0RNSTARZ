@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/registration', methods=['GET', 'POST'])
 def register():
-    if request.methods == 'POST':
+    if request.method == 'POST':
         all_data = request.form
         check_results = Inputhandler.check_inputs(all_data)
         for result in check_results:

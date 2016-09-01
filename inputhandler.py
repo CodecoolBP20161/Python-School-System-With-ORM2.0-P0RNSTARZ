@@ -1,5 +1,5 @@
-
 from model_city import *
+
 
 class Inputhandler():
     @classmethod

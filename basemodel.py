@@ -1,6 +1,8 @@
 from peewee import *
+from config import *
 
-db = PostgresqlDatabase('csibi', user='csibi')
+# you can add your database and username in the 'config.json' file
+db = PostgresqlDatabase(Config.load('database'), user=Config.load('user'))
 
 
 class BaseModel(Model):

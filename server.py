@@ -16,8 +16,6 @@ def register():
             'Name': request.form['Name']
         }
         check_results = Inputhandler.check_inputs(all_data)
-        correct = True
-
         if not check_results[3][0]:
             return render_template('/register.html', data=check_results)
         else:

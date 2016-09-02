@@ -7,13 +7,13 @@
     <h1>Register</h1>
     <form action="{{ url_for('register') }}" method=post>
         <label for="name">Name</label>
-        <input id="name" type="text" name="Name" value={{data[0][0]}}><p>{{data[0][1]}}</p>
+        <input id="name" type="text" required="required" name="Name" value={{data[0][0]}}><p>{{data[0][1]}}</p>
         <br>
         <label for="city">City</label>
-        <input id="city" type="text" name="City" value={{data[1][0]}}><p>{{data[1][1]}}</p>
+        <input id="city" type="text" required="required" name="City" value={{data[1][0]}}><p>{{data[1][1]}}</p>
         <br>
         <label for="email">Email</label>
-        <input id="email" type="text" name="Email" value={{data[2][0]}}><p>{{data[2][1]}}</p>
+        <input id="email" required="required" type="text" name="Email" value={{data[2][0]}}><p>{{data[2][1]}}</p>
         <br>
         <input type="submit" name="Register">
     </form>

@@ -16,21 +16,11 @@ def register():
             'Name': request.form['Name']
         }
         check_results = Inputhandler.check_inputs(all_data)
-        for result in check_results:
-            correct = True
-            if result[1] == 'Correct':
-                pass
-            else:
-                correct = False
-                break
-        if correct:
-            print('3')
+        correct = True
+
+        if not check_results[3][0]:
+            return render_template('/register.html', data=check_results)
+        else:
             city = City.get_by_name(all_data['City'])
-            print()
             Applicant.create(name=all_data['Name'], city=city, email=all_data['Email'])
-            return render_template('/register.html', data=[['', ''], ['', ''], ['', '']])
-
-        return render_template('/register.html', data=check_results)
-
-    else:
-        return render_template('/register.html', data=[['', ''], ['', ''], ['', '']])
+    return render_template('/register.html', data=[['', ''], ['', ''], ['', '']])

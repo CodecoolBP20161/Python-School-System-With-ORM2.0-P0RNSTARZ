@@ -1,4 +1,3 @@
-from basemodel import *
 from model_school import *
 
 

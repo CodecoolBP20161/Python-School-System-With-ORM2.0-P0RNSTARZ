@@ -50,3 +50,7 @@ class Applicant(BaseModel):
             student.status = 'Waiting for interview'
             student.save()
             manager.send_email(student)
+
+    @classmethod
+    def check_if_email_is_used(cls, email):
+        return cls.select().where(cls.email == email).exists()

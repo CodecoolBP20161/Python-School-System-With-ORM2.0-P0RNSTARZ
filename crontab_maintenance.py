@@ -1,6 +1,3 @@
-from models import *
-from model_school import *
-from model_city import *
 from model_applicant import *
 
 

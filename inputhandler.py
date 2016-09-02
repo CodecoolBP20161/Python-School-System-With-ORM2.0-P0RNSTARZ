@@ -1,4 +1,5 @@
 from model_city import *
+from model_applicant import *
 
 
 class Inputhandler():
@@ -11,6 +12,8 @@ class Inputhandler():
                     result[0][1] = 'Incorrect'
         if '@' not in all_data['Email'] or '.' not in all_data['Email']:
             result[2][1] = 'Incorrect'
-        if all_data['City'] not in [city.name for city in City.get_all()]:
+        elif all_data['City'] not in [city.name for city in City.get_all()]:
             result[1][1] = 'Incorrect'
+        elif Applicant.check_if_email_is_used(all_data['Email']):
+            result[2][1] = 'Already in use'
         return result

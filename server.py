@@ -16,9 +16,15 @@ def register():
             'Name': request.form['Name']
         }
         check_results = Inputhandler.check_inputs(all_data)
-        if not check_results[3][0]:
-            return render_template('/register.html', data=check_results)
-        else:
+        if not check_results:
             city = City.get_by_name(all_data['City'])
             Applicant.create(name=all_data['Name'], city=city, email=all_data['Email'])
-    return render_template('/register.html', data=[['', ''], ['', ''], ['', '']])
+            return redirect(url_for...)
+    else:
+        check_results = False
+    return render_template('/register.html', data=check_results)
+
+
+@app.route('/', methods=['GET'])
+def welcome():
+    return render_template("welcome.html")

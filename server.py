@@ -37,8 +37,8 @@ def login():
 
 @app.route('/applicant/profile', methods=['GET, POST'])
 def status_of_application():
-    pass
-
+    all_data = Applicant.select()
+    return render_template('profile.html', all_data=all_data)
 
 @app.route('/applicant/interview', methods=['GET, POST'])
 def status_of_interviews():

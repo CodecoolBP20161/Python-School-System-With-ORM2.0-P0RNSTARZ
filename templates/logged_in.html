@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ title }}</title>
+     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="header">
+        <p>
+            <ul>
+                <li>Codecool</li>
+
+                <li>
+                    <ul>
+
+                        {% if title != 'Profile' %}
+                        <li>
+                            <form action="{{ url_for('profile') }}" method="get">
+                                <input type="submit" value="Profile" class="button">
+                            </form>
+                        </li>
+                        {% endif %}
+
+                        {% if title != 'Interview' %}
+                        <li>
+                            <form action="{{ url_for('interview') }}" method="get">
+                                <input type="submit" value="Interview details" class="button">
+                            </form>
+                        </li>
+                        {% endif %}
+
+                        {% if title != 'About' %}
+                        <li>
+                            <form action="{{ url_for('about')}}" method="get" class="button">
+                                <input type="submit" value="About">
+                            </form>
+                        </li>
+                        {% endif %}
+
+                        <li>
+                            <form action="{{ url_for('logout') }}" method="get" class="button">
+                                <input type="submit" value="Logout">
+                            </form>
+                        </li>
+
+                    </ul>
+                </li>
+            </ul>
+
+    </div>
+    {% block body %}{% endblock %}
+    <p class="footer">a PornstarZ production | Codecool 2016</p>
+</body>
+</html>

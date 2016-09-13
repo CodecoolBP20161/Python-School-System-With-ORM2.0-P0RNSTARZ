@@ -2,19 +2,23 @@
 <html>
 <head>
     <title>Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-<style>
-</style>
 <body>
     <h1>Welcome</h1>
-        <form action="{{ url_for('register') }}" method=post>
-            <!-- <button> Login </button> -->
-            <input type='submit' value='Login'
-        </form>
-        <form action="{{ url_for('/applicant/login') }}" method=post>
-            <!-- <button> Registration </button> -->
-            <input type='submit' value='Registration'>
-        </form>
-
+    <p>
+        Some fancy stuff comes here about the school. So much better than everything else,
+        all the universities and whatever. Come and study with us if you want to earn a lot
+        of money in the near future.
+    </p>
+    <form action="{{ url_for('register') }}" method=post>
+        <input type='submit' value='Login'>
+    </form>
+    <form action="{{ url_for('/applicant/login') }}" method=post>
+        <input type='submit' value='Registration'>
+    </form>
+    {% if after_successfull %}
+    <p>Your registration was successfull!</p>
+    {% endif %}
 </body>
 </html>

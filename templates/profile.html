@@ -1,0 +1,10 @@
+{% extends "logged_in.html" %}
+{% block body %}
+    <h1 class="page_title">Logged in as: {{ name }} </h1>
+    <div class="info">
+        <p>Status: {{ status }}</p>
+        <p>Application code: {{ code }}</p>
+        <p>School: {{ school }}</p>
+        <p>Email: {{ email }}</p>
+    </div>
+{% endblock %}

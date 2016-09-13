@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <h1>Login</h1>
+
+    {% if data %} <p>Invalid email or password!</p> {% endif %}
+
+    <form action="{{ url_for('login') }}" method=post>
+
+        <label for="email">Email address:</label>
+        <input
+            id="email"
+            required
+            type="email"
+            {% if data %} value="{{  }}" {% endif %}
+            name="email"
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+            title="That is not a valid email..."
+        >
+        <br>
+
+        <label for="pw">Password:</label>
+        <input
+            id="pw"
+            required
+            {% if data %} value="{{  }}" {% endif %}
+            type="text"
+            name="password"
+        >
+        <br>
+
+        <input type="submit" name="Login">
+
+    </form>
+</body>
+</html>

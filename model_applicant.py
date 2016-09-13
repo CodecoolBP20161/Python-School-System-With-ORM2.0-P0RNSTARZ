@@ -52,3 +52,7 @@ class Applicant(BaseModel):
     @classmethod
     def check_if_email_is_used(cls, email):
         return cls.select().where(cls.email == email).exists()
+
+    @classmethod
+    def find_by_appnum(cls, appnum):
+        return cls.select().where(cls.application_number == appnum).get()

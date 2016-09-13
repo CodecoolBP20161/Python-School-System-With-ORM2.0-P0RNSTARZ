@@ -2,27 +2,50 @@
 <html>
 <head>
     <title>Register</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-<style>
-body {
-    background-image: url("/static/codecool.jpg");
-    background-repeat: no-repeat;
-    background-size: 1450px 700px;
-}
-</style>
 <body>
+
     <h1>Register</h1>
+
     <form action="{{ url_for('register') }}" method=post>
-        <label for="name">Name</label>
-        <input id="name" type="text" required="required" name="Name" value={{data[0][0]}}><p>{{data[0][1]}}</p>
+
+        <label for="name">Name:</label>
+        <input
+            id="name"
+            type="text"
+            required
+            name="Name"
+            pattern=".{5,20}"
+            {% if data %} value="{{  }}" {% endif %}
+        >
         <br>
-        <label for="city">City</label>
-        <input id="city" type="text" required="required" name="City" value={{data[1][0]}}><p>{{data[1][1]}}</p>
+
+        <label for="city">Closest city:</label>
+        <input
+            id="city"
+            type="text"
+            required
+            name="City"
+            {% if data %} value="{{  }}" {% endif %}
+        >
         <br>
-        <label for="email">Email</label>
-        <input id="email" required="required" type="text" name="Email" value={{data[2][0]}}><p>{{data[2][1]}}</p>
+
+        <label for="email">Email address:</label>
+        <input
+            id="email"
+            required
+            type="email"
+            name="Email"
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+            title="That is not a valid email..."
+            {% if data %} value="{{  }}" {% endif %}
+        >
+        {% if data %} <p>Already in use!</p> {% endif %}
         <br>
+
         <input type="submit" name="Register">
+
     </form>
 </body>
 </html>

@@ -37,12 +37,14 @@ def login():
 
 @app.route('/applicant/profile', methods=['GET, POST'])
 def status_of_application():
-    all_data = Applicant.select()
+    all_data = Applicant.get_applicant(session[application_number])
     return render_template('profile.html', all_data=all_data)
+
 
 @app.route('/applicant/interview', methods=['GET, POST'])
 def status_of_interviews():
-    pass
+    all_data = Interview.select(date, time, Mentor.name, Mentor.school).join(Mentor).where(application_number == session[application_number])
+    return render_template('profile.html', all_data=all_data)
 
 
 @app.route('/about_us', methods=['GET, POST'])

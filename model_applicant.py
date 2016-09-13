@@ -52,3 +52,31 @@ class Applicant(BaseModel):
     @classmethod
     def check_if_email_is_used(cls, email):
         return cls.select().where(cls.email == email).exists()
+
+    @classmethod
+    def get_applicant(cls, application_code):
+        return cls.select().where(cls.application_number == application_code).get()
+
+    @classmethod
+    def find_missing_interview(cls):
+        return cls.select().where(cls.status == 'New')
+
+    @classmethod
+    def find_interview(cls, number):
+        app = cls.select().join(InterviewSlot).join(Mentor).where(cls.application_number == number).get()
+        slot = InterviewSlot.select().join(cls).where(cls.application_number == number).get()
+        men = Mentor.select().join(InterviewSlot, JOIN.RIGHT_OUTER).join(cls).where(cls.application_number == number).get()
+        return [app.school_id, slot.time, slot.hour, men.name]
+
+    @classmethod
+    def find_mentors(cls, number):
+        mentors = Mentor.select().join(City, on=City.closest_school == Mentor.school).join(cls, on=City.name == Applicant.city).where(cls.application_number == number)
+        return [mentor.name for mentor in mentors]
+
+    def get_mentors(self):
+        mentors = Mentor.select().join(
+            City, on=City.closest_school == Mentor.school
+        ).join(
+            self.__class__, on=City.name == self.__class__.city
+        ).where(self.__class__.application_number == self.application_number)
+        return [mentor.name for mentor in mentors]

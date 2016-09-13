@@ -28,3 +28,23 @@ def register():
 @app.route('/', methods=['GET'])
 def welcome():
     return render_template("welcome.html")
+
+
+@app.route('/applicant/login', methods=['GET, POST'])
+def login():
+    pass
+
+
+@app.route('/applicant/profile', methods=['GET, POST'])
+def status_of_application():
+    pass
+
+
+@app.route('/applicant/interview', methods=['GET, POST'])
+def status_of_interviews():
+    pass
+
+
+@app.route('/about_us', methods=['GET, POST'])
+def route_to_about_us():
+    return render_template("about_us.html")

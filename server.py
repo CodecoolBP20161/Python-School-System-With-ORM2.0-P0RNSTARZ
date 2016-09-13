@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, session, redirect, url_for, g
-from model_applicant import *
-from model_city import *
+from model_mentor import *
 
 
 app = Flask(__name__)
@@ -41,24 +40,26 @@ def welcome():
 @app.route('/applicant/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        user = Applicant.find_by_appnum(request.form['password'])
+        user = Applicant.get_applicant(request.form['password'])
         if user.email == request.form['email']:
             session['application_number'] = user.application_number
             return redirect((url_for(status_of_application)))
     return render_template(url_for(login))
 
 
-@app.route('/applicant/profile', methods=['GET, POST'])
+@app.route('/applicant/profile', methods=['GET', 'POST'])
 def status_of_application():
-    all_data = Applicant.select()
+    all_data = Applicant.get_applicant(session['application_number'])
     return render_template('profile.html', all_data=all_data)
 
-@app.route('/applicant/interview', methods=['GET, POST'])
+
+@app.route('/applicant/interview', methods=['GET', 'POST'])
 def status_of_interviews():
-    pass
+    all_data = Interview.select(date, time, Mentor.name, Mentor.school).join(Mentor).where(Applicant.application_number == session['application_number'])
+    return render_template('profile.html', all_data=all_data)
 
 
-@app.route('/about_us', methods=['GET, POST'])
+@app.route('/about_us', methods=['GET', 'POST'])
 def route_to_about_us():
     return render_template("about_us.html")
 

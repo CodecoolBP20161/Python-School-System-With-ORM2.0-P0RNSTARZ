@@ -6,4 +6,4 @@ from model_applicant import *
 
 db.connect()
 
-db.create_tables([School, City, Applicant], safe=True)
+db.create_tables([School, City, Applicant, Interview, InterviewSlot, SlotMentor], safe=True)

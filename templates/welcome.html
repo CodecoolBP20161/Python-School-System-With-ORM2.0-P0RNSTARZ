@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+</head>
+<style>
+</style>
+<body>
+    <h1>Welcome</h1>
+        <form action="{{ url_for('register') }}" method=post>
+            <!-- <button> Login </button> -->
+            <input type='submit' value='Login'
+        </form>
+        <form action="{{ url_for('/applicant/login') }}" method=post>
+            <!-- <button> Registration </button> -->
+            <input type='submit' value='Registration'>
+        </form>
+
+</body>
+</html>

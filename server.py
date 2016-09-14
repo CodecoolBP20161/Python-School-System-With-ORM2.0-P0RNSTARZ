@@ -5,6 +5,7 @@ from model_school import *
 from model_city import *
 from model_interviewslot import *
 from model_interview import *
+from model_slotmentor import *
 
 
 app = Flask(__name__)
@@ -33,6 +34,8 @@ def register():
             Applicant.generate_unique(Applicant.find_missing_attr(Applicant.application_number))
             Applicant.find_school(Applicant.find_missing_attr(Applicant.school))
             Applicant.modify_status(Applicant.find_new_applicants())
+            user = Applicant.select().where(Applicant.email == all_data['Email']).get()
+            SlotMentor.assign_to_applicant(user)
             return redirect(url_for('welcome', code=307))
     else:
         all_data = False
@@ -63,17 +66,27 @@ def login():
 @app.route('/applicant/profile', methods=['GET', 'POST'])
 def status_of_application():
     if g.user:
+        title = "Profile"
         all_data = Applicant.get_applicant(session['application_number'])
-        return render_template('profile.html', all_data=all_data)
+        return render_template('profile.html', all_data=all_data, title=title)
     else:
         return redirect(url_for('welcome'))
 
 
-@app.route('/applicant/interview', methods=['GET', 'POST'])
+@app.route('/applicant/interview', methods=['GET'])
 def status_of_interviews():
     if g.user:
-        all_data = Interview.select(date, time, Mentor.name, Mentor.school).join(Mentor).where(Applicant.application_number == session['application_number'])
-        return render_template('profile.html', all_data=all_data)
+        title = "Interview"
+        applicant = Applicant.select().where(Applicant.application_number == session['application_number']).get()
+        interview = Interview.select().where(Interview.applicant == applicant).get()
+        time = interview.slot.time
+        date = interview.slot.date
+        school = Applicant.select().where(Applicant.application_number == session['application_number']).get().school.name
+        sms = SlotMentor.select().where(SlotMentor.applicant == applicant)
+        mentors = []
+        for sm in sms:
+            mentors.append(sm.mentor.name)
+        return render_template('interview.html', time=time, date=date, school=school, mentors=mentors, title=title)
     else:
         return redirect(url_for('welcome'))
 

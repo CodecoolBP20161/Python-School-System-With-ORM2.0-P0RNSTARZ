@@ -7,45 +7,49 @@
 <body>
     <div class="header">
         <p>
-            <ul>
-                <li>Codecool</li>
+            <!-- <ul> -->
+                <!-- <li>Codecool</li> -->
 
-                <li>
+                <!-- <li> -->
                     <ul>
 
                         {% if title != 'Profile' %}
                         <li>
-                            <form action="{{ url_for('status_of_application') }}" method="get">
-                                <input type="submit" value="Profile" class="button">
-                            </form>
+                            <div class="button">
+                                <form action="{{ url_for('status_of_application') }}" method="get">
+                                    <input type="submit" value="Profile">
+                                </form>
+                            </div>
                         </li>
                         {% endif %}
 
                         {% if title != 'Interview' %}
                         <li>
-                            <form action="{{ url_for('status_of_interviews') }}" method="get">
-                                <input type="submit" value="Interview details" class="button">
-                            </form>
+                            <div class="button">
+                                <form action="{{ url_for('status_of_interviews') }}" method="get">
+                                    <input type="submit" value="Interview details" class="button">
+                                </form>
+                            </div>
                         </li>
                         {% endif %}
 
                         {% if title != 'About' %}
                         <li>
                             <form action="{{ url_for('route_to_about_us')}}" method="get" class="button">
-                                <input type="submit" value="About">
+                                <input type="submit" value="About" class="button">
                             </form>
                         </li>
                         {% endif %}
 
                         <li>
                             <form action="{{ url_for('logout') }}" method="post" class="button">
-                                <input type="submit" value="Logout">
+                                <input type="submit" value="Logout" class="button">
                             </form>
                         </li>
 
                     </ul>
-                </li>
-            </ul>
+                <!-- </li> -->
+            <!-- </ul> -->
 
     </div>
     {% block body %}{% endblock %}

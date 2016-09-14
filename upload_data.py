@@ -1,7 +1,12 @@
 from model_school import *
 from model_city import *
+from model_applicant import *
+from model_mentor import *
+from model_interview import *
+from model_interviewslot import *
+from model_slotmentor import *
 import random
-
+from datetime import date, time
 
 list_of_cities = [
     'New York', 'Los Angeles', 'Chicago', 'Houston', 'Philadelphia', 'Phoenix', 'San Antonio', 'San Diego', 'Dallas',
@@ -52,3 +57,62 @@ for school in list_of_schools:
 
 for city in list_of_cities:
     City.create(name=city, closest_school=random.choice(schools))
+
+surnames = ['Smith', 'Anderson', 'Clark', 'Wright', 'Mitchell', 'Johnson', 'Thomas', 'Rodriguez', 'Lopez', 'Perez',
+            'Williams', 'Jackson', 'Lewis', 'Hill', 'Roberts', 'Jones', 'White', 'Lee', 'Scott', 'Turner', 'Brown',
+            'Harris', 'Walker', 'Green', 'Phillips', 'Davis', 'Martin', 'Hall', 'Adams', 'Campbell', 'Miller',
+            'Thompson',  'Allen', 'Baker', 'Parker', 'Wilson', 'Garcia', 'Young', 'Gonzalez', 'Evans', 'Moore',
+            'Martinez', 'Hernandez', 'Nelson', 'Edwards', 'Taylor', 'Robinson', 'King', 'Carter', 'Collins']
+
+first_names = ['James', 'Christopher', 'Ronald', 'Mary', 'Lisa', 'Michelle', 'John', 'Daniel', 'Anthony',
+               'Patricia', 'Nancy', 'Laura',
+               'Robert', 'Paul', 'Kevin', 'Linda', 'Karen', 'Sara', 'Michael',
+               'Mark', 'Jason', 'Barbara', 'Betty', 'Kimberly', 'William', 'Donald', 'Jeff', 'Elizabeth',
+               'Helen', 'Debora', 'David',
+               'George', 'Jennifer', 'Sandra', 'Richard', 'Kenneth', 'Maria',
+               'Donn', 'Charles', 'Steven', 'Susan', 'Caro', 'Josephine', 'Edward',
+               'Margaret', 'Ruth', 'Thomas', 'Brian', 'Dorothy', 'Sharon']
+
+# Creating lots of random mentors to work with
+mentors = []
+for x in range(28):
+    if x <= 7:
+        school = schools[0]
+    elif x <= 14:
+        school = schools[1]
+    elif x <= 21:
+        school = schools[2]
+    else:
+        school = schools[3]
+    surname = random.choice(surnames)
+    first_name = random.choice(first_names)
+    email = str(surname[:3] + first_name[:3])
+    new_mentor = Mentor.create(
+        name=surname + ' ' + first_name,
+        school=school,
+        email='%s@gmail.com' % email
+    )
+    mentors.append(new_mentor)
+
+hour = 9
+day = 10
+interview_slots = []
+# Creating interview time slots
+while hour != 14 and day != 14:
+    new_slot = InterviewSlot.create(
+        date=date(2016, 10, day),
+        time=time(hour, 0)
+    )
+    interview_slots.append(new_slot)
+    hour += 1
+    if hour == 14:
+        day += 1
+        hour = 9
+
+# assigning the mentors to each date
+for mentor in mentors:
+    for slot in interview_slots:
+        SlotMentor.create(
+            mentor=mentor,
+            slot=slot
+            )

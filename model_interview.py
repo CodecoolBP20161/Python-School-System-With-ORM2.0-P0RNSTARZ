@@ -1,5 +1,6 @@
 from basemodel import *
 from model_interviewslot import *
+from model_applicant import *
 
 
 class Interview(BaseModel):

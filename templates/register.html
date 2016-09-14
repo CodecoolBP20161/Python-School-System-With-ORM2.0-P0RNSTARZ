@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Register</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
@@ -17,7 +17,7 @@
             required
             name="Name"
             pattern=".{5,20}"
-            {% if data %} value="{{  }}" {% endif %}
+            {% if data %} value="{{ data["Name"] }}" {% endif %}
         >
         <br>
 
@@ -27,7 +27,7 @@
             type="text"
             required
             name="City"
-            {% if data %} value="{{  }}" {% endif %}
+            {% if data %} value="{{ data["City"] }}" {% endif %}
         >
         <br>
 
@@ -39,7 +39,7 @@
             name="Email"
             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
             title="That is not a valid email..."
-            {% if data %} value="{{  }}" {% endif %}
+            {% if data %} value="{{ data["Email"] }}" {% endif %}
         >
         {% if data %} <p>Already in use!</p> {% endif %}
         <br>
@@ -47,5 +47,6 @@
         <input type="submit" name="Register">
 
     </form>
+<p class="footer">a PornstarZ production | Codecool 2016</p>
 </body>
 </html>

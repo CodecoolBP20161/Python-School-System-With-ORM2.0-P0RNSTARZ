@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Home</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <h1>Welcome</h1>
@@ -11,14 +11,15 @@
         all the universities and whatever. Come and study with us if you want to earn a lot
         of money in the near future.
     </p>
-    <form action="{{ url_for('register') }}" method=post>
-        <input type='submit' value='Login'>
-    </form>
-    <form action="{{ url_for('/applicant/login') }}" method=post>
+    <form action="{{ url_for('register') }}" method=get>
         <input type='submit' value='Registration'>
+    </form>
+    <form action="{{ url_for('login') }}" method=get>
+        <input type='submit' value='Login'>
     </form>
     {% if after_successfull %}
     <p>Your registration was successfull!</p>
     {% endif %}
+<div class="footer">a PornstarZ production | Codecool 2016</div>
 </body>
 </html>

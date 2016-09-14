@@ -1,4 +1,4 @@
 {
-"database": "vorgonicspatrik",
-"user": "patrik"
+"database": "postgres",
+"user": "balint"
 }

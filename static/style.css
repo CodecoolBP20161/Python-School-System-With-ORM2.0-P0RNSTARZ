@@ -8,6 +8,21 @@ body {
     color: white;
 }
 
+a {
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 5px;
+    margin: 5px;
+    text-decoration: none;
+    font-size: 50px;
+    font-weight: bold;
+}
+
+a:hover {
+    color: pink;
+}
+
 ul {
     display: inline-block;
 }
@@ -32,14 +47,20 @@ ul {
     background-color: black;
     border: none;
     color: white;
+    padding: 15px 32px;
     text-align: center;
     font-size: 16px;
-    font-weight: 900;
-    border-radius: 10px;
+    margin: 4px 2px;
+	font-weight: 900;
+	border-radius: 50%;
+	position: absolute;
+    top: 70px;
+    right: 80px;
 }
 
 .button:hover {
-    color: pink;
+	color: pink;
+
 }
 
 .page_title {

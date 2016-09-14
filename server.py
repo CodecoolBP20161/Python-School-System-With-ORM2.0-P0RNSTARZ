@@ -10,7 +10,7 @@ from model_slotmentor import *
 
 app = Flask(__name__)
 app.config.from_object(__name__)
-app.secret_key = 'pornislife'
+app.secret_key = 'X'
 
 
 @app.before_request
@@ -52,12 +52,18 @@ def welcome():
 @app.route('/applicant/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        user = Applicant.get_applicant(request.form['password'])
-        if user.email == request.form['email']:
-            session['application_number'] = user.application_number
-            return redirect((url_for('status_of_application')))
+        pw = request.form['password']
+        email = request.form['email']
+        valid = Applicant.select().where(Applicant.email == email).exists()
+        if valid:
+            user = Applicant.get_applicant(pw)
+            if user.email == email:
+                session['application_number'] = user.application_number
+                return redirect((url_for('status_of_application')))
+            else:
+                data = [email, pw]
         else:
-            data = [request.form['email'], request.form['password']]
+            data = [email, pw]
     else:
         data = False
     return render_template('login.html', data=data)
@@ -94,7 +100,7 @@ def status_of_interviews():
 @app.route('/about_us', methods=['GET'])
 def route_to_about_us():
     if g.user:
-        return render_template("about.html")
+        return render_template("about.html", title='About')
     else:
         return redirect(url_for('welcome'))
 

@@ -6,7 +6,8 @@
 </head>
 <body>
 
-    <h1>Login</h1>
+    <a href="/">CodeCool</a>
+    <p>Login</p>
 
     {% if data %} <p>Invalid email or password!</p> {% endif %}
 
@@ -29,12 +30,12 @@
             id="pw"
             required
             {% if data %} value="{{ data[1] }}" {% endif %}
-            type="text"
+            type="password"
             name="password"
         >
         <br>
 
-        <input type="submit" name="Login">
+        <input type="submit" name="Login" class="button">
 
     </form>
     <p class="footer">a PornstarZ production | Codecool 2016</p>

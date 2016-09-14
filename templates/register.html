@@ -6,6 +6,7 @@
 </head>
 <body>
 
+    <a href="/">CodeCool</a>
     <h1>Register</h1>
 
     <form action="{{ url_for('register') }}" method=post>
@@ -44,7 +45,7 @@
         {% if data %} <p>Already in use!</p> {% endif %}
         <br>
 
-        <input type="submit" name="Register">
+        <input type="submit" name="Register" class="button">
 
     </form>
 <p class="footer">a PornstarZ production | Codecool 2016</p>

@@ -42,15 +42,16 @@ class Applicant(BaseModel):
 
     @classmethod
     def find_new_applicants(cls):
-        return cls.select().where(cls.status == 'New', cls.school >> None, cls.application_number >> None)
+        return cls.select().where(cls.status == 'New')
 
     @classmethod
     def modify_status(cls, list_of_students):
-        manager = EmailManager()
         for student in list_of_students:
             student.status = 'Waiting for interview'
             student.save()
-            manager.send_email(student)
+            manager = EmailManager()
+            message = message_to_student % (student.name, student.application_number)
+            manager.send_email(student.email, message)
 
     @classmethod
     def check_if_email_is_used(cls, email):

@@ -28,7 +28,7 @@ def register():
             'Email': request.form['Email'],
             'Name': request.form['Name']
         }
-        if not Applicant.check_if_email_is_used(request.form['Email']):
+        if not Applicant.check_if_email_is_used(request.form['Email']) and City.select().where(City.name == request.form['City']).exists():
             city = City.get_by_name(all_data['City'])
             Applicant.create(name=all_data['Name'], city=city, email=all_data['Email'])
             Applicant.generate_unique(Applicant.find_missing_attr(Applicant.application_number))
@@ -37,9 +37,15 @@ def register():
             user = Applicant.select().where(Applicant.email == all_data['Email']).get()
             SlotMentor.assign_to_applicant(user)
             return redirect(url_for('welcome', code=307))
+        else:
+            if not Applicant.check_if_email_is_used(request.form['Email']):
+                error = "Invalid Email"
+            else:
+                error = "Invalid city"
     else:
         all_data = False
-    return render_template('/register.html', data=all_data)
+        error = False
+    return render_template('/register.html', data=all_data, error=error)
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -56,8 +62,8 @@ def login():
         email = request.form['email']
         valid = Applicant.select().where(Applicant.email == email).exists()
         if valid:
-            user = Applicant.get_applicant(pw)
-            if user.email == email:
+            user = Applicant.select().where(Applicant.email == email).get()
+            if user.application_number == pw:
                 session['application_number'] = user.application_number
                 return redirect((url_for('status_of_application')))
             else:
@@ -73,7 +79,7 @@ def login():
 def status_of_application():
     if g.user:
         title = "Profile"
-        all_data = Applicant.get_applicant(session['application_number'])
+        all_data = Applicant.select().where(Applicant.application_number == (session['application_number'])).get()
         return render_template('profile.html', all_data=all_data, title=title)
     else:
         return redirect(url_for('welcome'))

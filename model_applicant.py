@@ -57,8 +57,8 @@ class Applicant(BaseModel):
         return cls.select().where(cls.email == email).exists()
 
     @classmethod
-    def get_applicant(cls, application_code):
-        return cls.select().where(cls.application_number == application_code).get()
+    def get_applicant(cls, email):
+        return cls.select().where(cls.email == email).get()
 
     @classmethod
     def find_missing_interview(cls):

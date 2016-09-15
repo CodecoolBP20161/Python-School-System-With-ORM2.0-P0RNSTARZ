@@ -42,7 +42,7 @@
             title="That is not a valid email..."
             {% if data %} value="{{ data["Email"] }}" {% endif %}
         >
-        {% if data %} <p>Already in use!</p> {% endif %}
+        {% if data %} <p> {{ error }} </p> {% endif %}
         <br>
 
         <input type="submit" name="Register" class="button">
